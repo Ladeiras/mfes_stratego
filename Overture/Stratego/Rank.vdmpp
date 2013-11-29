@@ -1,0 +1,4 @@
+class Rank
+	instance variables
+		public name : char;
+end Rank

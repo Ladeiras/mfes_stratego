@@ -1,0 +1,5 @@
+class Piece
+	instance variables
+		public position : Position;
+		public rank : Rank;
+end Piece
