@@ -1,0 +1,6 @@
+class Player
+	instance variables
+		public pieces: set of Piece;
+	operations
+		public getPieces: Player ==> set of Piece
+		 getPieces(p)

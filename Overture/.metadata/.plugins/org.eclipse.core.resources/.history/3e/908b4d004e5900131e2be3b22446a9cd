@@ -1,0 +1,33 @@
+class Game
+	instance variables
+		public player1 : Player;
+		public player2 : Player;
+		public turn : Player;
+		public board : map Piece to Position := {|->};
+		
+		--       0   1   2
+		--     +---+---+---
+		--   0 |   |   |   
+		--     +---+---+---
+		--   1 |   |   |   
+		
+	--Number pieces in the board
+	inv card rng board = 100;
+	
+	--Position columns and rows
+	inv forall p in set rng board & (p.column <=9 and p.row <=9);
+	
+	operations
+		public Game : () ==> Game
+			Game() ==
+			(
+				--Players
+				player1 := new Player(new Color("red"));
+				player2 := new Player(new Color("blue"));
+				
+				--Fill the empty and water positions
+				board := board ++ 
+					{new Position(0,4) |-> new Piece(new Rank("null"),new Color("null"))}
+			);
+		
+end Game

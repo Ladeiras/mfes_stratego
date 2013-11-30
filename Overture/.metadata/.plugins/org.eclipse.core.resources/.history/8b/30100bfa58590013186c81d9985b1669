@@ -1,0 +1,51 @@
+class Game
+	instance variables
+		public player1 : Player;
+		public player2 : Player;
+		public turn : Player;
+		public board : map Position to Piece := {|->};
+		
+		--       0   1   2
+		--     +---+---+---
+		--   0 |   |   |   
+		--     +---+---+---
+		--   1 |   |   |   
+		
+	--Number pieces in the board
+	inv card dom board = 100;
+	
+	--Position columns and rows
+	inv forall p in set dom board & (p.column <=9 and p.row <=9);
+	
+	operations
+		public Game : () ==> Game
+			Game() ==
+			(
+				--Players
+				player1 := new Player(new Color("red"));
+				player2 := new Player(new Color("blue"));
+				turn := player1;
+				
+				--Fill the empty and water positions
+				board := board ++ 
+					{new Piece(new Rank("null"),new Color("null")) |-> new Position(0,4)}
+			);
+			
+		public getOpponentColor : Position ==> seq of char
+			getOpponentColor(p) ==
+				(
+					if board(p).color = "red"
+						then return "blue"
+					else return "red"
+				);
+			
+		public validMove : Position*Position ==> bool
+			validMove(p1,p2) ==
+			(
+				dcl positions : set of Position := {p1,p2};
+				return positions subset rng board and
+					board(p1).color = turn.color and
+					board(p2).color = getOpponentColor(p1);
+			); 
+		
+end Game

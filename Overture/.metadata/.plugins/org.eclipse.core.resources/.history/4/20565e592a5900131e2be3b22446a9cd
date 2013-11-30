@@ -1,0 +1,86 @@
+class Piece
+
+	instance variables
+		public rank : Rank;
+		public position : Position;
+		public color : Color;
+		
+	--Colors
+	inv color.name = "red" or
+			color.name = "blue" or
+			color.name = "null";
+	
+	--Ranks
+	inv rank.name = "two" or
+			rank.name = "three" or
+			rank.name = "four" or
+			rank.name = "five" or
+			rank.name = "six" or
+			rank.name = "seven" or
+			rank.name = "eight" or
+			rank.name = "nine" or
+			rank.name = "ten" or
+			rank.name = "spy" or
+			rank.name = "bomb" or
+			rank.name = "flag" or
+			rank.name = "water" or
+			rank.name = "null";
+			
+	--Movement
+	inv cases rank.name :
+		"water", "bomb", "flag", "null" -> rank.movement = 0,
+		"spy" -> rank.movement = 9,
+		others -> rank.movement = 1
+		end;
+			
+	--Avaiability
+	inv if color.name = "null"
+		then
+			cases rank.name :
+				"water" -> rank.avaiability = 8,
+				"null" -> rank.avaiability = 12
+			end
+		else
+			cases rank.name :
+				"ten", "nine", "spy", "flag" -> rank.avaiability = 1,
+				"eight" -> rank.avaiability = 2,
+				"seven" -> rank.avaiability = 3,
+				"six", "five", "four" -> rank.avaiability = 4,
+				"three" -> rank.avaiability = 5,
+				"bomb" -> rank.avaiability = 6,
+				"two" -> rank.avaiability = 8
+			end;
+			
+	--Number
+	inv cases rank.name :
+				"two" -> rank.number = 2,
+				"three" -> rank.number = 2,
+				"four" -> rank.number = 2,
+				"five" -> rank.number = 2,
+				"six" -> rank.number = 2,
+				"seven" -> rank.number = 2,
+				"eight" -> rank.number = 2,
+				"nine" -> rank.number = 2,
+				"ten" -> rank.number = 2,
+				"spy" -> rank.number = 2,
+				"bomb" -> rank.number = 2,
+				"flag" -> rank.number = 2,
+				"water" -> rank.number = 2,
+				"null" -> rank.number = 2
+			end;
+
+	--Number of rows and columns
+	inv position.column <= 9;
+	inv position.row <= 9;
+
+	operations
+		public Piece : Rank*Position*Color ==> Piece
+			Piece(r,p,c) == 
+			(
+				rank := r;
+				position := p;
+				color := c;
+			)
+			post rank = r and position = p;
+		
+end Piece

@@ -1,0 +1,11 @@
+class Rank
+	instance variables
+		public name : seq of char;
+	operations
+		public Rank : seq of char ==> Rank
+			Rank(n) ==
+			( 
+				name := n;
+			)
+			post name = n;
+end Rank

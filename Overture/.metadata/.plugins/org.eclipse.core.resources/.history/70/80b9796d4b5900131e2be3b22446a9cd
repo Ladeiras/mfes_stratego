@@ -1,0 +1,41 @@
+class Rank
+
+	instance variables
+		public name : seq of char;
+		public avaiability : nat1;
+		public movement : nat;
+		public number : nat1;
+	
+	operations
+		public Rank : seq of char ==> Rank
+			Rank(n) ==
+			( 
+				name := n;
+				
+				--Avaiability
+				cases name :
+					"water" -> avaiability := 8,
+					"null" -> avaiability := 12,
+					"ten", "nine", "spy", "flag" -> avaiability := 1,
+					"eight" -> avaiability := 2,
+					"seven" -> avaiability := 3,
+					"six", "five", "four" -> avaiability := 4,
+					"three" -> avaiability := 5,
+					"bomb" -> avaiability := 6,
+					"two" -> avaiability := 8
+				end;
+				
+				--Movement
+				cases name :
+					"water", "bomb", "flag", "null" -> rank.movement = 0,
+					"spy" -> rank.movement = 9,
+					others -> rank.movement = 1
+				end
+		
+		
+				movement := m;
+				number := nr;
+			)
+			post name = n;
+			
+end Rank

@@ -1,0 +1,18 @@
+class Rank
+
+	instance variables
+		public name : seq of char;
+		public avaiability : nat1;
+		public movement : nat;
+	
+	operations
+		public Rank : (seq of char)*nat1*nat ==> Rank
+			Rank(n,a,m) ==
+			( 
+				name := n;
+				avaiability := a;
+				movement := m;
+			)
+			post name = n and avaiability = a and movement = m;
+			
+end Rank

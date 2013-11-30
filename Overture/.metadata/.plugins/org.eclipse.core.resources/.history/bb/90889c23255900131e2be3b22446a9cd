@@ -1,0 +1,18 @@
+class Player
+
+	instance variables
+		public color: Color;
+		
+	--Color must be either red or blue
+	inv color.name = "red" or
+			color.name = "blue";
+	
+	operations
+		public Player : color ==> Player
+		Rank(c) ==
+		( 
+			color := c;
+		)
+		post color = c;
+	 
+end Player

@@ -1,0 +1,18 @@
+class Player
+	instance variables
+		public pieces: set of Piece;
+		public color: Color;
+		--Color must be either red or blue
+		inv color.name = [r,e,d] or
+				color.name = [b,l,u,e];
+		--Number of pieces must less than equal to 10
+		inv 
+		
+	operations
+		public getPieces: Player ==> set of Piece
+		 getPieces(p) == 
+		 (
+		 	
+		 );
+		 
+end Player

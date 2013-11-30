@@ -1,0 +1,8 @@
+class Color
+	instance variables
+		public name : char;
+	operations
+		public Color : char ==> Color
+			Color(n) == (name := n)
+			post name = s;
+end Color;

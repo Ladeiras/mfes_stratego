@@ -1,0 +1,11 @@
+class Color
+	instance variables
+		public name;
+	operations
+		public Color : seq of char ==> Color
+			Color(n) ==
+			( 
+				name := n;
+			)
+			post name = n;
+end Color
