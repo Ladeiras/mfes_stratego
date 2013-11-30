@@ -1,0 +1,21 @@
+class TestGame
+	
+	operations
+		public test : () ==> bool
+			test () ==
+			(
+				dcl game : Game := new Game();
+				
+				game.addPiece(mk_Game`Position(1,0), new Piece(new Rank("spy"), new Color("red")));
+				game.addPiece(mk_Game`Position(1,1), new Piece(new Rank("null"), new Color("null")));
+				game.addPiece(mk_Game`Position(1,2), new Piece(new Rank("null"), new Color("null")));
+				--return game.checkMiddlePieces(mk_Game`Position(1,0),mk_Game`Position(1,2));
+				--game.checkToPositionColor(mk_Game`Position(0,0),mk_Game`Position(0,1));
+				--game.checkTurn(mk_Game`Position(0,0));
+				--return game.validMove(1,0,1,2);
+				--return game.checkMovement(mk_Game`Position(1,0),mk_Game`Position(1,2));
+				--return game.validMove(1,0,1,2);
+				return game.move(1,0,1,2);
+			);
+			
+end TestGame
