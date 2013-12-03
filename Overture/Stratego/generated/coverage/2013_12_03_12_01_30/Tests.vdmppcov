@@ -1,0 +1,31 @@
+class Tests is subclass of TestCase
+	
+	instance variables
+		game : Game := new Game();
+	operations
+		static public assertTrue : bool ==> ()
+                assertTrue(op) == return
+        pre op;
+		
+		public testgetBoardSize : () ==> ()
+			testgetBoardSize() ==
+			(
+				assertTrue(game.getBoardSize() = 100);
+				IO`println("getBoardSize : passed");
+			);
+			
+		public testcheckAvaiability : () ==> ()
+			testcheckAvaiability() ==
+			(
+				game.addNewPiece(mk_Game`Position(2,4), new Piece(new Rank("two"), new Color("red")));
+				assertTrue(game.checkAvaiability(new Piece(new Rank("two"), new Color("red"))) = true);
+				IO`println("checkAvaiability : passed");
+			);
+			
+		public testAll : () ==> ()
+			testAll() ==
+			(
+				testgetBoardSize();
+				testcheckAvaiability()
+			);
+end Tests

@@ -1,0 +1,44 @@
+class Tests is subclass of TestCase
+	operations
+		static public assertTrue : bool ==> ()
+                assertTrue(op) == return
+        pre op;
+		
+		public testgetBoardSize : () ==> ()
+			testgetBoardSize() ==
+			(
+				dcl game : Game := new Game();
+				
+				assertTrue(game.getBoardSize() = 100);
+				IO`println("getBoardSize : passed");
+			);
+			
+		public testcheckAvaiability1 : () ==> ()
+			testcheckAvaiability1() ==
+			(
+				dcl game : Game := new Game();
+				
+				--Check if a new position for flag is available
+				game.addNewPiece(mk_Game`Position(0,0), new Piece(new Rank("flag"), new Color("red")));
+				assertTrue(game.checkAvaiability(new Piece(new Rank("flag"), new Color("red"))) = false);
+				IO`println("checkAvaiability1 : passed");
+			);
+			
+		public testcheckAvaiability2 : () ==> ()
+			testcheckAvaiability2() ==
+			(
+				dcl game : Game := new Game();
+				
+				--Check if a new position for 'eight' is available
+				game.addNewPiece(mk_Game`Position(0,0), new Piece(new Rank("eight"), new Color("red")));
+				assertTrue(game.checkAvaiability(new Piece(new Rank("eight"), new Color("red"))) = true);
+				IO`println("checkAvaiability2 : passed");
+			);
+			
+		public testAll : () ==> ()
+			testAll() ==
+			(
+				testgetBoardSize();
+				testcheckAvaiability1()
+			);
+end Tests

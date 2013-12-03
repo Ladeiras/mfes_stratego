@@ -9,22 +9,23 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="casesensitive"/>
+		<item value="true" key="casesensitive"/>
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="rank" key="selection"/>
+		<item value="Test" key="selection"/>
 		<list key="findhistory">
+			<item value="Check"/>
+			<item value="empty"/>
 			<item value="number"/>
 			<item value="get"/>
 			<item value="card"/>
 			<item value="red"/>
 			<item value="new Position"/>
 			<item value="dcl"/>
-			<item value="&gt;"/>
-			<item value="&lt;"/>
 		</list>
 		<list key="replacehistory">
+			<item value="Test"/>
 			<item value="rank"/>
 			<item value="blue"/>
 			<item value="mk_Position"/>
@@ -32,7 +33,6 @@
 			<item value="&lt;"/>
 			<item value="&gt;,"/>
 			<item value="&gt;;"/>
-			<item value="&gt; "/>
 		</list>
 	</section>
 </section>
