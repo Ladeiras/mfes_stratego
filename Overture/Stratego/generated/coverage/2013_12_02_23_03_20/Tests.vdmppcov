@@ -1,0 +1,11 @@
+class Tests is subclass of TestCase
+	
+	instance variables
+		game : Game := new Game();
+	operations
+		public testgetBoardSize : () ==> ()
+			testgetBoardSize() ==
+			(
+				assertTrue(game.getBoardSize() = 1);
+			);
+end Tests

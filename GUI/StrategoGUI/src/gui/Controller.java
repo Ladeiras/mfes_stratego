@@ -13,12 +13,14 @@ public class Controller implements RemoteControl
 	{
 		interpreter = intrprtrt;
 		System.out.println("Remote control running...");
-		
+		interpreter.create("p", "new Play()");
+		interpreter.valueExecute("p.initializeBoard()");
+		interpreter.valueExecute("p.play(0,3,0,4)");
+		interpreter.valueExecute("p.printBoard()");
 		/*
 		interpreter.init();
 		interpreter.create("t", "new TestGame()");
 		Value result = interpreter.valueExecute("t.test()");
-		Context ctxt = null;
 		System.out.println(result.boolValue(ctxt));
 		*/
 		

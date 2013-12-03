@@ -1,0 +1,40 @@
+class Code
+
+	instance variables
+		public str: seq of char := "  ";
+	
+	operations
+		public Code : Rank*Color ==> Code
+		Code(r,c) ==
+		(
+			dcl rank : char := '.';
+			dcl color : char := 'R';
+			 
+			cases r.name :
+					"two" -> rank := '2',
+					"three" -> rank := '3',
+					"four" -> rank := '4',
+					"five" -> rank := '5',
+					"six" -> rank := '6',
+					"seven" -> rank := '7',
+					"eight" -> rank := '8',
+					"nine" -> rank := '9',
+					"ten" -> rank := 'M',
+					"spy" -> rank := 'S',
+					"bomb" -> rank := 'B',
+					"flag" -> rank := 'F',
+					"water" -> rank := 'W',
+					"null" -> rank := '-'
+				end;
+				
+			cases c.name :
+					"red" -> rank := 'R',
+					"blue" -> rank := 'B',
+					"null" -> rank := '-'
+				end;
+				
+			str := str ++ {1 |-> rank,
+						   2 |-> color};
+		);
+	 
+end Code

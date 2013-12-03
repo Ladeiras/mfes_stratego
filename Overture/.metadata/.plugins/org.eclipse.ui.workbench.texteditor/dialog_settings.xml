@@ -13,18 +13,19 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="red" key="selection"/>
+		<item value="rank" key="selection"/>
 		<list key="findhistory">
-			<item value="red"/>
+			<item value="number"/>
 			<item value="get"/>
+			<item value="card"/>
+			<item value="red"/>
 			<item value="new Position"/>
 			<item value="dcl"/>
 			<item value="&gt;"/>
 			<item value="&lt;"/>
-			<item value="&quot;"/>
-			<item value="&quot;,"/>
 		</list>
 		<list key="replacehistory">
+			<item value="rank"/>
 			<item value="blue"/>
 			<item value="mk_Position"/>
 			<item value="&quot;"/>
@@ -32,7 +33,6 @@
 			<item value="&gt;,"/>
 			<item value="&gt;;"/>
 			<item value="&gt; "/>
-			<item value="&lt; "/>
 		</list>
 	</section>
 </section>

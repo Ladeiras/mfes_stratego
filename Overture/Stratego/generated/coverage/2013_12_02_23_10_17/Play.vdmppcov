@@ -1,0 +1,117 @@
+class Play
+	
+	instance variables
+		game : Game := new Game();
+	operations
+		public initializeBoard : () ==> ()
+			initializeBoard () ==
+			(
+				--Red pieces
+				game.addPiece(mk_Game`Position(0,0), new Piece(new Rank("two"), new Color("red")));
+				game.addPiece(mk_Game`Position(1,0), new Piece(new Rank("three"), new Color("red")));
+				game.addPiece(mk_Game`Position(2,0), new Piece(new Rank("eight"), new Color("red")));
+				game.addPiece(mk_Game`Position(3,0), new Piece(new Rank("two"), new Color("red")));
+				game.addPiece(mk_Game`Position(4,0), new Piece(new Rank("three"), new Color("red")));
+				game.addPiece(mk_Game`Position(5,0), new Piece(new Rank("two"), new Color("red")));
+				game.addPiece(mk_Game`Position(6,0), new Piece(new Rank("four"), new Color("red")));
+				game.addPiece(mk_Game`Position(7,0), new Piece(new Rank("two"), new Color("red")));
+				game.addPiece(mk_Game`Position(8,0), new Piece(new Rank("ten"), new Color("red")));
+				game.addPiece(mk_Game`Position(9,0), new Piece(new Rank("flag"), new Color("red")));
+				
+				game.addPiece(mk_Game`Position(0,1), new Piece(new Rank("three"), new Color("red")));
+				game.addPiece(mk_Game`Position(1,1), new Piece(new Rank("two"), new Color("red")));
+				game.addPiece(mk_Game`Position(2,1), new Piece(new Rank("six"), new Color("red")));
+				game.addPiece(mk_Game`Position(3,1), new Piece(new Rank("three"), new Color("red")));
+				game.addPiece(mk_Game`Position(4,1), new Piece(new Rank("four"), new Color("red")));
+				game.addPiece(mk_Game`Position(5,1), new Piece(new Rank("five"), new Color("red")));
+				game.addPiece(mk_Game`Position(6,1), new Piece(new Rank("three"), new Color("red")));
+				game.addPiece(mk_Game`Position(7,1), new Piece(new Rank("six"), new Color("red")));
+				game.addPiece(mk_Game`Position(8,1), new Piece(new Rank("four"), new Color("red")));
+				game.addPiece(mk_Game`Position(9,1), new Piece(new Rank("four"), new Color("red")));
+				
+				game.addPiece(mk_Game`Position(0,2), new Piece(new Rank("bomb"), new Color("red")));
+				game.addPiece(mk_Game`Position(1,2), new Piece(new Rank("bomb"), new Color("red")));
+				game.addPiece(mk_Game`Position(2,2), new Piece(new Rank("spy"), new Color("red")));
+				game.addPiece(mk_Game`Position(3,2), new Piece(new Rank("seven"), new Color("red")));
+				game.addPiece(mk_Game`Position(4,2), new Piece(new Rank("bomb"), new Color("red")));
+				game.addPiece(mk_Game`Position(5,2), new Piece(new Rank("bomb"), new Color("red")));
+				game.addPiece(mk_Game`Position(6,2), new Piece(new Rank("seven"), new Color("red")));
+				game.addPiece(mk_Game`Position(7,2), new Piece(new Rank("five"), new Color("red")));
+				game.addPiece(mk_Game`Position(8,2), new Piece(new Rank("bomb"), new Color("red")));
+				game.addPiece(mk_Game`Position(9,2), new Piece(new Rank("bomb"), new Color("red")));
+				
+				game.addPiece(mk_Game`Position(0,3), new Piece(new Rank("six"), new Color("red")));
+				game.addPiece(mk_Game`Position(1,3), new Piece(new Rank("two"), new Color("red")));
+				game.addPiece(mk_Game`Position(2,3), new Piece(new Rank("five"), new Color("red")));
+				game.addPiece(mk_Game`Position(3,3), new Piece(new Rank("eight"), new Color("red")));
+				game.addPiece(mk_Game`Position(4,3), new Piece(new Rank("two"), new Color("red")));
+				game.addPiece(mk_Game`Position(5,3), new Piece(new Rank("two"), new Color("red")));
+				game.addPiece(mk_Game`Position(6,3), new Piece(new Rank("nine"), new Color("red")));
+				game.addPiece(mk_Game`Position(7,3), new Piece(new Rank("six"), new Color("red")));
+				game.addPiece(mk_Game`Position(8,3), new Piece(new Rank("five"), new Color("red")));
+				game.addPiece(mk_Game`Position(9,3), new Piece(new Rank("seven"), new Color("red")));
+				
+				
+				--Blue Pieces
+				
+				game.addPiece(mk_Game`Position(9,9), new Piece(new Rank("two"), new Color("blue")));
+				game.addPiece(mk_Game`Position(8,9), new Piece(new Rank("three"), new Color("blue")));
+				game.addPiece(mk_Game`Position(7,9), new Piece(new Rank("eight"), new Color("blue")));
+				game.addPiece(mk_Game`Position(6,9), new Piece(new Rank("two"), new Color("blue")));
+				game.addPiece(mk_Game`Position(5,9), new Piece(new Rank("three"), new Color("blue")));
+				game.addPiece(mk_Game`Position(4,9), new Piece(new Rank("two"), new Color("blue")));
+				game.addPiece(mk_Game`Position(3,9), new Piece(new Rank("four"), new Color("blue")));
+				game.addPiece(mk_Game`Position(2,9), new Piece(new Rank("two"), new Color("blue")));
+				game.addPiece(mk_Game`Position(1,9), new Piece(new Rank("ten"), new Color("blue")));
+				game.addPiece(mk_Game`Position(0,9), new Piece(new Rank("flag"), new Color("blue")));
+				
+				game.addPiece(mk_Game`Position(9,8), new Piece(new Rank("three"), new Color("blue")));
+				game.addPiece(mk_Game`Position(8,8), new Piece(new Rank("two"), new Color("blue")));
+				game.addPiece(mk_Game`Position(7,8), new Piece(new Rank("six"), new Color("blue")));
+				game.addPiece(mk_Game`Position(6,8), new Piece(new Rank("three"), new Color("blue")));
+				game.addPiece(mk_Game`Position(5,8), new Piece(new Rank("four"), new Color("blue")));
+				game.addPiece(mk_Game`Position(4,8), new Piece(new Rank("five"), new Color("blue")));
+				game.addPiece(mk_Game`Position(3,8), new Piece(new Rank("three"), new Color("blue")));
+				game.addPiece(mk_Game`Position(2,8), new Piece(new Rank("six"), new Color("blue")));
+				game.addPiece(mk_Game`Position(1,8), new Piece(new Rank("four"), new Color("blue")));
+				game.addPiece(mk_Game`Position(0,8), new Piece(new Rank("four"), new Color("blue")));
+				
+				game.addPiece(mk_Game`Position(9,7), new Piece(new Rank("bomb"), new Color("blue")));
+				game.addPiece(mk_Game`Position(8,7), new Piece(new Rank("bomb"), new Color("blue")));
+				game.addPiece(mk_Game`Position(7,7), new Piece(new Rank("spy"), new Color("blue")));
+				game.addPiece(mk_Game`Position(6,7), new Piece(new Rank("seven"), new Color("blue")));
+				game.addPiece(mk_Game`Position(5,7), new Piece(new Rank("bomb"), new Color("blue")));
+				game.addPiece(mk_Game`Position(4,7), new Piece(new Rank("bomb"), new Color("blue")));
+				game.addPiece(mk_Game`Position(3,7), new Piece(new Rank("seven"), new Color("blue")));
+				game.addPiece(mk_Game`Position(2,7), new Piece(new Rank("five"), new Color("blue")));
+				game.addPiece(mk_Game`Position(1,7), new Piece(new Rank("bomb"), new Color("blue")));
+				game.addPiece(mk_Game`Position(0,7), new Piece(new Rank("bomb"), new Color("blue")));
+				
+				game.addPiece(mk_Game`Position(9,6), new Piece(new Rank("six"), new Color("blue")));
+				game.addPiece(mk_Game`Position(8,6), new Piece(new Rank("two"), new Color("blue")));
+				game.addPiece(mk_Game`Position(7,6), new Piece(new Rank("five"), new Color("blue")));
+				game.addPiece(mk_Game`Position(6,6), new Piece(new Rank("eight"), new Color("blue")));
+				game.addPiece(mk_Game`Position(5,6), new Piece(new Rank("two"), new Color("blue")));
+				game.addPiece(mk_Game`Position(4,6), new Piece(new Rank("two"), new Color("blue")));
+				game.addPiece(mk_Game`Position(3,6), new Piece(new Rank("nine"), new Color("blue")));
+				game.addPiece(mk_Game`Position(2,6), new Piece(new Rank("six"), new Color("blue")));
+				game.addPiece(mk_Game`Position(1,6), new Piece(new Rank("five"), new Color("blue")));
+				game.addPiece(mk_Game`Position(0,6), new Piece(new Rank("seven"), new Color("blue")));
+				--return game.checkMiddlePieces(mk_Game`Position(1,0),mk_Game`Position(1,2));
+				--game.checkToPositionColor(mk_Game`Position(0,0),mk_Game`Position(0,1));
+				--game.checkTurn(mk_Game`Position(0,0));
+				--return game.validMove(1,0,1,2);
+				--return game.checkMovement(mk_Game`Position(1,0),mk_Game`Position(1,2));
+				--return game.validMove(1,0,1,2);
+				--return game.checkAvaiability(new Piece(new Rank("spy"), new Color("red")));
+				--game.move(1,0,1,1);
+				--return game.board(mk_Game`Position(0,6)).rank.name = "seven";
+			);
+			
+		public play : nat*nat*nat*nat ==> ()
+			play(fc,fr,tc,tr) ==
+			(
+				game.move(fc,fr,tc,tr);
+			);
+			
+end Play
