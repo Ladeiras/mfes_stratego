@@ -1,3 +1,0 @@
-class Player
-	instance variables
-		public pieces: set of Piece;
