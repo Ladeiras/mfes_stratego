@@ -3,20 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
-
-import java.awt.GridLayout;
-import javax.swing.JPanel;
+package model;
 
 /**
  *
  * @author Paulo Faria Reis <paulo@fariareis.com>
  */
-public class GameMap extends JPanel {
+public class Color {
 
-   public GameMap() {
-	GridLayout board10x10 = new GridLayout(10, 10);
-	this.setLayout(board10x10);
+   String color;
+
+   public Color(String color) {
+	this.color = color;
+   }
+
+   public String getColor() {
+	return color;
+   }
+
+   public void setColor(String color) {
+	this.color = color;
    }
 
 }

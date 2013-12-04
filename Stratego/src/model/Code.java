@@ -3,12 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game;
+package model;
 
 /**
  *
  * @author Paulo Faria Reis <paulo@fariareis.com>
  */
-public class Color {
+public class Code {
+
+   private String code;
+
+   public Code(String code) {
+	this.code = code;
+   }
+
+   public String getCode() {
+	return code;
+   }
+
+   public void setCode(String code) {
+	this.code = code;
+   }
 
 }

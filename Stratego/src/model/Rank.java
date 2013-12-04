@@ -3,19 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game;
+package model;
 
 /**
  *
  * @author Paulo Faria Reis <paulo@fariareis.com>
  */
-public class Position {
+public class Rank {
 
-   public int x;
-   public int y;
+   String rankName;
 
-   public Position(int x, int y) {
-	this.x = x;
-	this.y = y;
+   public Rank(String rankName) {
+	this.rankName = rankName;
    }
+
+   public String getRankName() {
+	return rankName;
+   }
+
+   public void setRankName(String rankName) {
+	this.rankName = rankName;
+   }
+
 }
