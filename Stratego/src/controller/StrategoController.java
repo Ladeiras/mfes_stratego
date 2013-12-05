@@ -3,13 +3,17 @@
 package controller;
 
 import gui.StrategoView;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import model.Piece;
+import model.Position;
 import model.StrategoModel;
 
 /**
  *
  * @author Paulo Faria Reis <paulo@fariareis.com>
  */
-public class StrategoController {
+public class StrategoController implements ActionListener {
 
    private final StrategoModel strategoModel;
    private final StrategoView strategoView;
@@ -18,6 +22,31 @@ public class StrategoController {
 	this.strategoModel = strategoModel;
 	this.strategoView = strategoView;
 
+	/* Prepara controlos. */
+	prepareControlButtons();
+
+	/* Adiciona as 100 Pieces do tabuleiro */
+	prepareBoardPieces();
+   }
+
+   /**
+    * Prepara o tabuleiro de jogo.
+    */
+   private void prepareBoardPieces() {
+	Piece boardPiece;
+	for (int x = 0; x < 10; x++) {
+	   for (int y = 0; y < 10; y++) {
+		boardPiece = strategoModel.getPiece(x, y);
+		boardPiece.addActionListener(this);
+		strategoView.getGameMap().add(boardPiece);
+	   }
+	}
+   }
+
+   /**
+    * Adds the ActionListeners to the JButton from the Control Panel.
+    */
+   private void prepareControlButtons() {
 	/* Adiciona listener para o botão EXIT. */
 	strategoView.exitButton.addActionListener(new java.awt.event.ActionListener() {
 	   @Override
@@ -41,7 +70,6 @@ public class StrategoController {
 		newgameButtonActionPerformed(evt);
 	   }
 	});
-
    }
 
    /* Ação a executar no evento de clicar no botão EXIT. */
@@ -54,7 +82,12 @@ public class StrategoController {
    /* Acção a executar com o Botão para testes. */
    private void testButtonActionPerformed(java.awt.event.ActionEvent evt) {
 	strategoView.addMessage("Teste.");
-	strategoModel.getPiece(5, 5);
+	Position piecePosition = strategoModel.getPiece(5, 5).getPosition();
+	strategoView.setGameStageText("Planning");
+	strategoView.setPlayerTurnText("Blue");
+	strategoView.setMoveFromText("(" + piecePosition.x + ", " + piecePosition.y + ")");
+	strategoView.setMoveToText("(" + (piecePosition.x + 2) + ", " + (piecePosition.y - 2) + ")");
+
    }
 
    /* Acção a executar com o botão NEWGAME. */
@@ -66,6 +99,13 @@ public class StrategoController {
 		strategoView.getGameMap().add(strategoModel.getPiece(x, y));
 	   }
 	}
+   }
+
+   @Override
+   public void actionPerformed(ActionEvent e) {
+	Piece boardPiece;
+	//boardPiece = e.getSource();
+
    }
 
 }

@@ -25,12 +25,10 @@ public class Piece extends JButton {
 	this.code = code;
    }
 
-   @Deprecated
    public Position getPosition() {
 	return position;
    }
 
-   @Deprecated
    public void setPosition(Position position) {
 	this.position = position;
    }
