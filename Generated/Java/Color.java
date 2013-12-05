@@ -10,7 +10,7 @@
 // ***** VDMTOOLS START Name=HeaderComment KEEP=NO
 // ***** VDMTOOLS END Name=HeaderComment
 
-// This file was genereted from "C:\\Users\\João\\Documents\\GitHub\\mfes_stratego\\VDM++\\Position.rtf".
+// This file was genereted from "C:\\Users\\João\\Documents\\GitHub\\mfes_stratego\\VDM++\\Color.rtf".
 
 // ***** VDMTOOLS START Name=package KEEP=NO
 // ***** VDMTOOLS END Name=package
@@ -24,38 +24,34 @@ import jp.vdmtools.VDM.CGException;
 
 
 
-public class Position implements EvaluatePP {
+public class Color implements EvaluatePP {
 
-// ***** VDMTOOLS START Name=column KEEP=NO
-  public volatile Number column = null;
-// ***** VDMTOOLS END Name=column
-
-// ***** VDMTOOLS START Name=row KEEP=NO
-  public volatile Number row = null;
-// ***** VDMTOOLS END Name=row
+// ***** VDMTOOLS START Name=name KEEP=NO
+  public volatile String name = null;
+// ***** VDMTOOLS END Name=name
 
 // ***** VDMTOOLS START Name=sentinel KEEP=NO
   volatile Sentinel sentinel;
 // ***** VDMTOOLS END Name=sentinel
 
 
-// ***** VDMTOOLS START Name=PositionSentinel KEEP=NO
-  class PositionSentinel extends Sentinel {
+// ***** VDMTOOLS START Name=ColorSentinel KEEP=NO
+  class ColorSentinel extends Sentinel {
 
-    public final int Position = 0;
+    public final int Color = 0;
 
     public final int nr_functions = 1;
 
 
-    public PositionSentinel () throws CGException {}
+    public ColorSentinel () throws CGException {}
 
 
-    public PositionSentinel (EvaluatePP instance) throws CGException {
+    public ColorSentinel (EvaluatePP instance) throws CGException {
       init(nr_functions, instance);
     }
 
   }
-// ***** VDMTOOLS END Name=PositionSentinel
+// ***** VDMTOOLS END Name=ColorSentinel
 ;
 
 // ***** VDMTOOLS START Name=evaluatePP#1|int KEEP=NO
@@ -68,7 +64,7 @@ public class Position implements EvaluatePP {
 // ***** VDMTOOLS START Name=setSentinel KEEP=NO
   public void setSentinel () {
     try {
-      sentinel = new PositionSentinel(this);
+      sentinel = new ColorSentinel(this);
     }
     catch (Exception e) {
       System.out.println(e.getMessage());
@@ -77,35 +73,32 @@ public class Position implements EvaluatePP {
 // ***** VDMTOOLS END Name=setSentinel
 
 
-// ***** VDMTOOLS START Name=vdm_init_Position KEEP=NO
-  private void vdm_init_Position () {
+// ***** VDMTOOLS START Name=vdm_init_Color KEEP=NO
+  private void vdm_init_Color () {
     try {
       setSentinel();
-      column = new Integer(0);
-      row = new Integer(0);
     }
     catch (Exception e) {
       e.printStackTrace(System.out);
       System.out.println(e.getMessage());
     }
   }
-// ***** VDMTOOLS END Name=vdm_init_Position
+// ***** VDMTOOLS END Name=vdm_init_Color
 
 
-// ***** VDMTOOLS START Name=Position KEEP=NO
-  public Position () throws CGException {
-    vdm_init_Position();
+// ***** VDMTOOLS START Name=Color KEEP=NO
+  public Color () throws CGException {
+    vdm_init_Color();
   }
-// ***** VDMTOOLS END Name=Position
+// ***** VDMTOOLS END Name=Color
 
 
-// ***** VDMTOOLS START Name=Position#2|Number|Number KEEP=NO
-  public Position (final Number c, final Number r) throws CGException {
-    vdm_init_Position();
-    column = UTIL.NumberToInt(UTIL.clone(c));
-    row = UTIL.NumberToInt(UTIL.clone(r));
+// ***** VDMTOOLS START Name=Color#1|String KEEP=NO
+  public Color (final String n) throws CGException {
+    vdm_init_Color();
+    name = UTIL.ConvertToString(UTIL.clone(n));
   }
-// ***** VDMTOOLS END Name=Position#2|Number|Number
+// ***** VDMTOOLS END Name=Color#1|String
 
 }
 ;
