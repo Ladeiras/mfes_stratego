@@ -16,13 +16,16 @@ public class Piece extends JButton {
    private Rank rank;
    private Color color;
    private Code code;
+   private String pieceLabel;
 
-   public Piece(Position position, Rank rank, Color color, Code code) {
-	super(rank.getRankName());
+   public Piece(Position position, String pieceLabel, Rank rank, Color color, Code code) {
+	super(pieceLabel);
+	this.pieceLabel = pieceLabel;
 	this.position = position;
 	this.rank = rank;
 	this.color = color;
 	this.code = code;
+	this.setBackground(java.awt.Color.WHITE);
    }
 
    public Position getPosition() {
@@ -57,13 +60,11 @@ public class Piece extends JButton {
 	this.code = code;
    }
 
-//   @Override
-//   public void setName(String name) {
-//	super.setText(name);
-//   }
-//
-//   @Override
-//   public String getName() {
-//	return super.getName();
-//   }
+   public String getPieceLabel() {
+	return pieceLabel;
+   }
+
+   public void setPieceLabel(String pieceLabel) {
+	this.pieceLabel = pieceLabel;
+   }
 }

@@ -12,15 +12,27 @@ package model;
 public class StrategoModel {
 
    private final Piece[][] gamePieces;
+   int gameStage;
 
    public StrategoModel() {
+	this.gameStage = 1;
 	this.gamePieces = new Piece[10][10];
 	for (int x = 0; x < 10; x++) {
 	   for (int y = 0; y < 10; y++) {
-		this.gamePieces[x][y] = new Piece(new Position(x, y), new Rank("vazio"), new Color("incolor"), new Code("nulo"));
+		this.gamePieces[x][y] = new Piece(new Position(x, y), "empty", new Rank("vazio"), new Color("Azul"), new Code("nulo"));
 	   }
 	}
+   }
 
+   public void prepareNewGame() {
+	for (int x = 0; x < 10; x++) {
+	   for (int y = 0; y < 10; y++) {
+		this.gamePieces[x][y].setRank(new Rank("Peão"));
+		this.gamePieces[x][y].setCode(new Code("Código"));
+		this.gamePieces[x][y].setColor(new Color("Vermelho"));
+		this.gamePieces[x][y].setPieceLabel("Limpo");
+	   }
+	}
    }
 
    /**
@@ -42,10 +54,20 @@ public class StrategoModel {
 	return this.gamePieces[position.x][position.y];
    }
 
-   // Piece(Position position, Rank rank, Color color, Code code)
+   // Piece(Position position, String pieceLabel, Rank rank, Color color, Code code)
    public void updatePiece(Position position, Piece piece) {
+	this.gamePieces[position.x][position.y].setPieceLabel(piece.getPieceLabel());
 	this.gamePieces[position.x][position.y].setRank(piece.getRank());
 	this.gamePieces[position.x][position.y].setColor(piece.getColor());
 	this.gamePieces[position.x][position.y].setCode(piece.getCode());
    }
+
+   public int getGameStage() {
+	return gameStage;
+   }
+
+   public void setGameStage(int gameStage) {
+	this.gameStage = gameStage;
+   }
+
 }

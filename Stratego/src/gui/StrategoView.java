@@ -124,7 +124,7 @@ public class StrategoView extends JFrame {
 	exitButton.setText("Exit");
 
 	testButton.setFont(gamenameLabel.getFont());
-	testButton.setText("Try Me");
+	testButton.setText("Next phase");
 
 	playerTurnTxt.setEditable(false);
 	playerTurnTxt.setFont(new java.awt.Font("Showcard Gothic", 0, 11)); // NOI18N
@@ -294,6 +294,23 @@ public class StrategoView extends JFrame {
 
    public JPanel getGameMap() {
 	return this.gameMap;
+   }
+
+   /**
+    * Display game information.
+    *
+    * @param message
+    * @param gameStage
+    * @param player
+    * @param move
+    * @param to
+    */
+   public void setInfo(String gameStage, String player, String move, String to, String message) {
+	this.addMessage(message);
+	this.setGameStageText(gameStage);
+	this.setPlayerTurnText(player);
+	this.setMoveFromText(move);
+	this.setMoveToText(to);
    }
 
 }
