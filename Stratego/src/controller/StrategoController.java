@@ -54,6 +54,7 @@ public class StrategoController {
    /* Acção a executar com o Botão para testes. */
    private void testButtonActionPerformed(java.awt.event.ActionEvent evt) {
 	strategoView.addMessage("Teste.");
+	strategoModel.getPiece(5, 5);
    }
 
    /* Acção a executar com o botão NEWGAME. */

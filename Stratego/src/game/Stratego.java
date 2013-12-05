@@ -16,5 +16,6 @@ public class Stratego {
     */
    public static void main(String args[]) {
 	StrategoGame strategoGame = new StrategoGame();
+	strategoGame.run();
    }
 }

@@ -26,7 +26,9 @@ public class StrategoGame {
 	strategoModel = new StrategoModel();
 	strategoView = new StrategoView();
 	strategoController = new StrategoController(strategoModel, strategoView);
+   }
 
+   public void run() {
 	java.awt.EventQueue.invokeLater(new Runnable() {
 	   @Override
 	   public void run() {
@@ -34,5 +36,4 @@ public class StrategoGame {
 	   }
 	});
    }
-
 }
