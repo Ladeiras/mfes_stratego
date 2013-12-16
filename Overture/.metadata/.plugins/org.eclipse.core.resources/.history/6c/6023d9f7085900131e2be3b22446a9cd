@@ -1,5 +1,0 @@
-class Player
-	instance variables
-		public pieces: set of Piece;
-	operations
-		public getPieces: set of Piece ==> Player 

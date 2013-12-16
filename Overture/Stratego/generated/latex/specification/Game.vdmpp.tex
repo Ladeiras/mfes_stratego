@@ -1,0 +1,413 @@
+\begin{vdm_al}
+class Game
+ types
+  public Position:: column : nat row : nat
+ instance variables
+  --public player1 : Player;
+  --public player2 : Player;
+  public turn : seq of char;
+  public finish : bool;
+  public board : map Position to Piece := {|->};
+  
+  --       0    1    2
+  --     +----+----+---
+  --   0 |    |    |   
+  --     +----+----+---
+  --   1 |    |    |   
+  
+ --Number pieces in the board
+ inv card dom board <= 100;
+ 
+ --Position columns and rows
+ inv forall p in set dom board & (p.column <=9 and p.row <=9);
+ 
+ --Turn must be either "red" or "blue"
+ inv turn = "red" or turn = "blue";
+ 
+ operations
+  public Game : () ==> Game
+   Game() ==
+   (
+    --Players
+    --player1 := new Player(new Color("red"));
+    --player2 := new Player(new Color("blue"));
+    turn := "red";
+    finish := false;
+    
+    --Fill the empty and water positions
+    initialize();
+    
+    return self
+   );
+   
+  --Fill the empty and water positions
+  public initialize : () ==> ()
+   initialize() ==
+   (
+    dcl c : nat := 0;
+    dcl r : nat := 0;
+    
+    --Add empty pieces
+    while(r < 10) do
+    (
+     while(c < 10) do
+     (
+      addNewPiece(mk_Position(c,r), new Piece(new Rank("null"), new Color("null")));
+      c := c+1;
+     );
+     
+     c := 0;
+     r := r+1;
+    );
+    
+    --Add water
+    addNewPiece(mk_Position(2,4), new Piece(new Rank("water"), new Color("null")));
+    addNewPiece(mk_Position(2,5), new Piece(new Rank("water"), new Color("null")));
+    addNewPiece(mk_Position(3,4), new Piece(new Rank("water"), new Color("null")));
+    addNewPiece(mk_Position(3,5), new Piece(new Rank("water"), new Color("null")));
+    
+    addNewPiece(mk_Position(6,4), new Piece(new Rank("water"), new Color("null")));
+    addNewPiece(mk_Position(6,5), new Piece(new Rank("water"), new Color("null")));
+    addNewPiece(mk_Position(7,4), new Piece(new Rank("water"), new Color("null")));
+    addNewPiece(mk_Position(7,5), new Piece(new Rank("water"), new Color("null")));
+   );
+   
+  public getBoardSize : () ==> nat
+   getBoardSize() ==
+   (
+    return card dom board;
+   );
+   
+  --Check if the number of pieces of a certain type hasn't been surpassed
+  public checkAvaiability : Piece ==> bool
+   checkAvaiability(piece) ==
+   (
+    dcl setP : set of Piece := {p | p in set rng board & 
+         (p.color.name = piece.color.name and p.rank.name = piece.rank.name)};
+         
+    return card setP < piece.rank.avaiability;
+   );
+  
+  --Add new Piece
+  public addNewPiece : Position*Piece ==> ()
+   addNewPiece(position, piece) ==
+   (
+    if checkAvaiability(piece)
+     then board := board ++ {position |-> piece}
+   );
+   --pre checkAvaiability(piece);
+   --post board(position) = piece;
+  
+  --Add Piece
+  public addPiece : Position*Piece ==> ()
+   addPiece(position, piece) ==
+   (
+    board := board ++ {position |-> piece}
+   );
+  
+  --Get piece in given position
+  public getPiece : Position ==> Piece
+   getPiece(pos) ==
+   (
+    return board(pos);
+   );
+   
+  --Get piece in given position
+  public getClonePiece : Position ==> Piece
+   getClonePiece(pos) ==
+   (
+    return new Piece(new Rank(board(pos).rank.name), new Color(board(pos).color.name));
+   );
+  
+  --Empty Piece
+   public emptyPiece : () ==> Piece
+    emptyPiece() ==
+    (
+     return new Piece(new Rank("null"), new Color("null"));
+    );
+  
+  --Check if the piece in the position is the same color as the turn 
+  public checkTurn : Position ==> bool
+   checkTurn(p) ==
+    (
+     if board(p).color.name = turn
+      then return true
+     else return false
+    );
+    
+  --Change turn 
+  public changeTurn : () ==> ()
+   changeTurn() ==
+    (
+     if turn = "red"
+      then turn := "blue"
+     else turn := "red"
+    );
+   
+  --Returns the color of the opponent
+  public getOpponentColor : Position ==> seq of char
+   getOpponentColor(p) ==
+    (
+     if board(p).color.name = "red"
+      then return "blue"
+     else return "red"
+    );
+    
+  --Check if the "to" position color is valid
+  public checkToPositionColor : Position*Position ==> bool
+   checkToPositionColor(p1,p2) ==
+    (
+     if board(p2).color.name = getOpponentColor(p1) or
+       board(p2).color.name = "null"
+      then return true
+     else return false
+    )
+    pre checkTurn(p1);
+    
+  --Check if movement is horizontal or veritical
+  public checkHorV : Position*Position ==> bool
+   checkHorV(p1,p2) ==
+    (
+     dcl pSet : set of Position := {p1, p2};
+     return forall e1,e2 in set pSet & (e1.row = e2.row or e1.column = e2.column); 
+    )
+    pre checkTurn(p1);
+        
+  --Check if the middle pieces are empty
+  public checkMiddlePieces : Position*Position ==> bool
+   checkMiddlePieces(p_from, p_to) ==
+   (
+    dcl pSet : set of Position;
+    
+    if p_to.column > p_from.column and
+      p_to.row = p_from.row -- right
+      then pSet := {p | p in set dom board & 
+     (p.column < p_to.column and p.column > p_from.column and p.row = p_from.row)}
+    elseif p_to.column < p_from.column and
+        p_to.row = p_from.row -- left
+      then pSet := {p | p in set dom board & 
+     (p.column > p_to.column and p.column < p_from.column and p.row = p_from.row)}
+    elseif p_to.column = p_from.column and
+        p_to.row < p_from.row -- up
+      then pSet := {p | p in set dom board & 
+     (p.row > p_to.row and p.row < p_from.row and p.column = p_from.column)}
+    elseif p_to.column = p_from.column and
+        p_to.row > p_from.row -- down
+      then pSet := {p | p in set dom board & 
+     (p.row < p_to.row and p.row > p_from.row and p.column = p_from.column)};
+       
+    return forall p in set pSet & board(p).rank.name = "null";
+   )
+   pre checkTurn(p_from);
+  
+  --Check if the piece can move the number of cells
+  public checkMovement : Position*Position ==> bool
+   checkMovement(p_from, p_to) ==
+   (
+    dcl pSet : set of Position;
+    dcl length : nat;
+    
+    if p_to.column > p_from.column and
+      p_to.row = p_from.row -- right
+      then pSet := {p | p in set dom board & 
+     (p.column < p_to.column and p.column > p_from.column and p.row = p_from.row)}
+    elseif p_to.column < p_from.column and
+        p_to.row = p_from.row -- left
+      then pSet := {p | p in set dom board & 
+     (p.column > p_to.column and p.column < p_from.column and p.row = p_from.row)}
+    elseif p_to.column = p_from.column and
+        p_to.row < p_from.row -- up
+      then pSet := {p | p in set dom board & 
+     (p.row > p_to.row and p.row < p_from.row and p.column = p_from.column)}
+    elseif p_to.column = p_from.column and
+        p_to.row > p_from.row -- down
+      then pSet := {p | p in set dom board & 
+     (p.row < p_to.row and p.row > p_from.row and p.column = p_from.column)};
+    
+    length := card pSet;
+    length := length + 1;
+       
+    return length <= board(p_from).rank.movement;
+   )
+   pre checkTurn(p_from);
+  
+  --Validate move
+  public validMove : nat*nat*nat*nat ==> bool
+   validMove(fc,fr,tc,tr) ==
+   (
+    dcl p1 : Position := mk_Position(fc,fr);
+    dcl p2 : Position := mk_Position(tc,tr);
+    dcl positions : set of Position := {p1,p2};
+    return positions subset dom board and
+     p1 <> p2 and
+     checkHorV(p1,p2) and
+     checkToPositionColor(p1,p2) and
+     checkMiddlePieces(p1,p2) and
+     checkMovement(p1,p2);
+   )
+   pre fc >= 0 and fc <= 9 and fr >= 0 and fr <= 9 and
+     tc >= 0 and tc <= 9 and tr >= 0 and tr <= 9;
+  
+  --Validate swap positions
+  public validSwapPositions : nat*nat*nat*nat ==> bool
+   validSwapPositions(fc,fr,tc,tr) ==
+   (
+    dcl pSet : set of Position := {mk_Position(fc,fr),mk_Position(tc,tr)};
+    return forall p1,p2 in set pSet & getPiece(p1).color.name = getPiece(p2).color.name;
+   );
+   
+  --Swap positions
+  public swapPositions : nat*nat*nat*nat ==> ()
+   swapPositions(fc,fr,tc,tr) ==
+   (
+    dcl p1 : Position := mk_Position(fc,fr);
+    dcl p2 : Position := mk_Position(tc,tr);
+    dcl piece1 : Piece := getClonePiece(p1);
+    dcl piece2 : Piece := getClonePiece(p2);
+    
+    (addPiece(p1, piece2);
+    addPiece(p2, piece1);)
+   )
+   pre validSwapPositions(fc,fr,tc,tr);
+     
+  --Move Piece
+  public move : nat*nat*nat*nat ==> ()
+   move(fc,fr,tc,tr) ==
+   (
+    dcl p1 : Position := mk_Position(fc,fr);
+    dcl p2 : Position := mk_Position(tc,tr);
+    
+    if finish = false
+     then
+     (if getPiece(p2).rank.name = "null" or
+        (getPiece(p1).rank.name = "spy" and
+       getPiece(p2).rank.name = "ten") or
+       (getPiece(p1).rank.name = "three" and
+       getPiece(p2).rank.name = "bomb")
+      then (addPiece(p2, getClonePiece(p1));
+         addPiece(p1, emptyPiece());
+         changeTurn();)
+     elseif getPiece(p2).rank.name = "bomb"
+      then (addPiece(p2, emptyPiece());
+         addPiece(p1, emptyPiece());
+         changeTurn();)
+     elseif getPiece(p2).rank.name = "flag"
+      then finish := true
+     elseif getPiece(p2).rank.number > getPiece(p1).rank.number
+      then (addPiece(p1, emptyPiece());
+        changeTurn();)
+     elseif getPiece(p2).rank.number < getPiece(p1).rank.number
+      then (addPiece(p2, getClonePiece(p1));
+         addPiece(p1, emptyPiece());
+         changeTurn();)
+     );
+    --else return false;
+    
+     
+    --return true;
+   )
+   pre validMove(fc,fr,tc,tr);
+    
+  --Return true if the game ended
+  public gameEnded : () ==> bool
+   gameEnded() ==
+   (
+    return finish;
+   );
+   
+  --Return true if the game ended
+  public getWinner : () ==> seq of char
+   getWinner() ==
+   (
+    if finish = true
+     then return turn;
+    
+    return "null";
+   );
+  
+  --Print board in the console 
+  public printBoard : () ==> ()
+   printBoard() ==
+   (
+    dcl r : nat := (*@\notcovered{0}@*);
+    dcl c : nat := (*@\notcovered{0}@*);
+    
+    (*@\notcovered{IO`println}@*)((*@\notcovered{"     0    1    2    3    4    5    6    7    8    9"}@*));
+    (*@\notcovered{IO`println}@*)((*@\notcovered{"   +----+----+----+----+----+----+----+----+----+----+"}@*));
+    
+    (*@\notcovered{while}@*)((*@\notcovered{r}@*) (*@\notcovered{<}@*) (*@\notcovered{10}@*)) do
+    (
+     (*@\notcovered{IO`print}@*)((*@\notcovered{" "}@*)); (*@\notcovered{IO`print}@*)((*@\notcovered{r}@*));
+     (*@\notcovered{while}@*)((*@\notcovered{c}@*) (*@\notcovered{<}@*) (*@\notcovered{10}@*)) do
+     (
+      (*@\notcovered{IO`print}@*)((*@\notcovered{" | "}@*));
+      (*@\notcovered{IO`print}@*)((*@\notcovered{getPiece}@*)((*@\notcovered{mk\_Position}@*)((*@\notcovered{c}@*),(*@\notcovered{r}@*))).(*@\notcovered{code}@*).(*@\notcovered{str}@*));
+      (*@\notcovered{c}@*) := (*@\notcovered{c}@*)(*@\notcovered{+}@*)(*@\notcovered{1}@*);
+     );
+     (*@\notcovered{IO`println}@*)((*@\notcovered{" |"}@*));
+     (*@\notcovered{IO`println}@*)((*@\notcovered{"   +----+----+----+----+----+----+----+----+----+----+"}@*));
+     
+     (*@\notcovered{c}@*) := (*@\notcovered{0}@*);
+     (*@\notcovered{r}@*) := (*@\notcovered{r}@*)(*@\notcovered{+}@*)(*@\notcovered{1}@*);
+    );
+   );
+   
+end Game
+\end{vdm_al}
+\bigskip
+\begin{longtable}{|l|r|r|}
+\hline
+Function or operation & Coverage & Calls \\
+\hline
+\hline
+Game & 100.0\% & 44 \\
+\hline
+addNewPiece & 100.0\% & 4843 \\
+\hline
+addPiece & 100.0\% & 21 \\
+\hline
+changeTurn & 100.0\% & 11 \\
+\hline
+checkAvaiability & 100.0\% & 4845 \\
+\hline
+checkHorV & 100.0\% & 16 \\
+\hline
+checkMiddlePieces & 100.0\% & 19 \\
+\hline
+checkMovement & 100.0\% & 17 \\
+\hline
+checkToPositionColor & 100.0\% & 15 \\
+\hline
+checkTurn & 100.0\% & 68 \\
+\hline
+emptyPiece & 100.0\% & 12 \\
+\hline
+gameEnded & 100.0\% & 1 \\
+\hline
+getBoardSize & 100.0\% & 1 \\
+\hline
+getClonePiece & 100.0\% & 11 \\
+\hline
+getOpponentColor & 100.0\% & 17 \\
+\hline
+getPiece & 100.0\% & 95 \\
+\hline
+getWinner & 100.0\% & 2 \\
+\hline
+initialize & 100.0\% & 44 \\
+\hline
+move & 100.0\% & 12 \\
+\hline
+printBoard & 0.0\% & 0 \\
+\hline
+swapPositions & 100.0\% & 1 \\
+\hline
+validMove & 100.0\% & 14 \\
+\hline
+validSwapPositions & 100.0\% & 3 \\
+\hline
+\hline
+Game.vdmpp & 95.2\% & 10112 \\
+\hline
+\end{longtable}
+
