@@ -34,7 +34,7 @@ public class StrategoView extends JFrame {
    /* Botões de controlo */
    public JButton newgameButton;
    public JButton exitButton;
-   public JButton testButton;
+   public JButton nextStageButton;
    /* Caixas de etiqueta */
    private javax.swing.JLabel gameStageLabel;
    private javax.swing.JLabel playerTurnLabel;
@@ -75,7 +75,7 @@ public class StrategoView extends JFrame {
 	logger = new javax.swing.JTextArea();
 	newgameButton = new javax.swing.JButton();
 	exitButton = new javax.swing.JButton();
-	testButton = new javax.swing.JButton();
+	nextStageButton = new javax.swing.JButton();
 	gameMap = new javax.swing.JPanel();
 	playerTurnTxt = new javax.swing.JTextField();
 	playerTurnLabel = new javax.swing.JLabel();
@@ -123,8 +123,8 @@ public class StrategoView extends JFrame {
 	exitButton.setFont(gamenameLabel.getFont());
 	exitButton.setText("Exit");
 
-	testButton.setFont(gamenameLabel.getFont());
-	testButton.setText("Next phase");
+	nextStageButton.setFont(gamenameLabel.getFont());
+	nextStageButton.setText("Next phase");
 
 	playerTurnTxt.setEditable(false);
 	playerTurnTxt.setFont(new java.awt.Font("Showcard Gothic", 0, 11)); // NOI18N
@@ -166,7 +166,7 @@ public class StrategoView extends JFrame {
 		  .addComponent(messageAreaScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
 		  .addComponent(newgameButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 		  .addComponent(exitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-		  .addComponent(testButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+		  .addComponent(nextStageButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 		  .addGroup(controlPanelLayout.createSequentialGroup()
 			    .addContainerGap()
 			    .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,7 +193,7 @@ public class StrategoView extends JFrame {
 			    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 			    .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
 			    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-			    .addComponent(testButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+			    .addComponent(nextStageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
 			    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 			    .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 					.addComponent(gameStageLabel)
@@ -253,7 +253,7 @@ public class StrategoView extends JFrame {
     * @param message
     */
    public void addMessage(String message) {
-	logger.setText(message + "\n" + logger.getText());
+	logger.append(message + "\n");
    }
 
    /**
@@ -313,4 +313,17 @@ public class StrategoView extends JFrame {
 	this.setMoveToText(to);
    }
 
+   /**
+    * Disables Next stage Button.
+    */
+   public void disableNextStageButton() {
+	nextStageButton.setEnabled(false);
+   }
+
+   /**
+    * Enables Next stage Button.
+    */
+   public void enableNextStageButton() {
+	nextStageButton.setEnabled(true);
+   }
 }

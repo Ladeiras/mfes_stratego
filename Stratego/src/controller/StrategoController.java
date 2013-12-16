@@ -7,7 +7,6 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import model.Piece;
-import model.Position;
 import model.StrategoModel;
 
 /**
@@ -66,11 +65,11 @@ public class StrategoController implements ActionListener {
 	   }
 	});
 
-	/* Adiciona listener para o botão TRYME. */
-	strategoView.testButton.addActionListener(new java.awt.event.ActionListener() {
+	/* Adiciona listener para o botão NEXT PHASE. */
+	strategoView.nextStageButton.addActionListener(new java.awt.event.ActionListener() {
 	   @Override
 	   public void actionPerformed(java.awt.event.ActionEvent evt) {
-		testButtonActionPerformed(evt);
+		nextPhaseButtonActionPerformed(evt);
 	   }
 	});
 
@@ -91,13 +90,44 @@ public class StrategoController implements ActionListener {
    }
 
    /* Acção a executar com o Botão para testes. */
-   private void testButtonActionPerformed(java.awt.event.ActionEvent evt) {
-	strategoView.addMessage("Teste.");
-	Position piecePosition = strategoModel.getPiece(5, 5).getPosition();
-	strategoView.setGameStageText("Planning");
-	strategoView.setPlayerTurnText("Blue");
-	strategoView.setMoveFromText("(" + piecePosition.x + ", " + piecePosition.y + ")");
-	strategoView.setMoveToText("(" + (piecePosition.x + 2) + ", " + (piecePosition.y - 2) + ")");
+   private void nextPhaseButtonActionPerformed(java.awt.event.ActionEvent evt) {
+	String message = "Advancing game stage, from\n";
+	int currentGameStage = strategoModel.getGameStage();
+	int nextGameStage = currentGameStage + 1;
+	switch (nextGameStage) {
+	   case PLANNING_P1:
+		strategoView.enableNextStageButton();
+		message += "new game to player 1 planning.";
+		break;
+	   case PLANNING_INTERVAL:
+		message += "player 1 planning to planning interval.";
+		break;
+	   case PLANNING_P2:
+		message += "planning interval to player 2 planning.";
+		break;
+	   case READY_P1:
+		message += "player 2 planning to waiting for player 1.";
+		break;
+	   case PLAYING_P1:
+		strategoView.disableNextStageButton();
+		message += "waiting for player 1 to player 1 move.";
+		break;
+	   case READY_P2:
+		strategoView.enableNextStageButton();
+		message += "player 1 move to waiting for player 2.";
+		break;
+	   case PLAYING_P2:
+		strategoView.disableNextStageButton();
+		message += "waiting for player 2 to player 2 move.";
+		break;
+	   case ENDGAME:
+		strategoView.enableNextStageButton();
+		message = "The game is over.";
+		break;
+
+	}
+	strategoView.addMessage(message);
+	strategoModel.setGameStage(nextGameStage);
 
    }
 
@@ -147,6 +177,8 @@ public class StrategoController implements ActionListener {
 		strategoModel.setGameStage(PLAYING_P1);
 		strategoView.setInfo("Playing", "Player 1", "", "", "Player 1, make your move.");
 		// TODO: Alterar o texto dos botões das peças do player 1 para rank.
+		strategoView.addMessage("Player 1 moved.");
+		strategoView.enableNextStageButton();
 		break;
 	   case READY_P2:
 		strategoModel.setGameStage(READY_P2);
@@ -157,6 +189,8 @@ public class StrategoController implements ActionListener {
 		strategoModel.setGameStage(PLAYING_P2);
 		strategoView.setInfo("Playing", "Player 2", "", "", "Player 2, make your move.");
 		// TODO: Alterar o texto dos botões das peças do player 1 para rank.
+		strategoView.addMessage("Player 2 moved.");
+		strategoView.enableNextStageButton();
 		break;
 	   case ENDGAME:
 		strategoModel.setGameStage(ENDGAME);

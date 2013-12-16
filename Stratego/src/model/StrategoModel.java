@@ -12,7 +12,7 @@ package model;
 public class StrategoModel {
 
    private final Piece[][] gamePieces;
-   int gameStage;
+   private int gameStage;
 
    public StrategoModel() {
 	this.gameStage = 1;
@@ -25,6 +25,7 @@ public class StrategoModel {
    }
 
    public void prepareNewGame() {
+	this.gameStage = 1;
 	for (int x = 0; x < 10; x++) {
 	   for (int y = 0; y < 10; y++) {
 		this.gamePieces[x][y].setRank(new Rank("Peão"));
@@ -62,10 +63,20 @@ public class StrategoModel {
 	this.gamePieces[position.x][position.y].setCode(piece.getCode());
    }
 
+   /**
+    * Get the current game stage.
+    *
+    * @return
+    */
    public int getGameStage() {
 	return gameStage;
    }
 
+   /**
+    * Sets the new game stage.
+    *
+    * @param gameStage
+    */
    public void setGameStage(int gameStage) {
 	this.gameStage = gameStage;
    }
