@@ -13,7 +13,12 @@ public class StrategoModel {
 
    private final Piece[][] gamePieces;
    private int gameStage;
+   private Piece firstPieceSelected = null;
+   private Piece secondPieceSelected = null;
 
+   /**
+    *
+    */
    public StrategoModel() {
 	this.gameStage = 1;
 	this.gamePieces = new Piece[10][10];
@@ -79,6 +84,38 @@ public class StrategoModel {
     */
    public void setGameStage(int gameStage) {
 	this.gameStage = gameStage;
+   }
+
+   /**
+    *
+    * @return
+    */
+   public Piece getFirstPieceSelected() {
+	return firstPieceSelected;
+   }
+
+   /**
+    *
+    * @param firstPieceSelected
+    */
+   public void setFirstPieceSelected(Piece firstPieceSelected) {
+	this.firstPieceSelected = firstPieceSelected;
+   }
+
+   /**
+    *
+    * @return
+    */
+   public Piece getSecondPieceSelected() {
+	return secondPieceSelected;
+   }
+
+   /**
+    *
+    * @param secondPieceSelected
+    */
+   public void setSecondPieceSelected(Piece secondPieceSelected) {
+	this.secondPieceSelected = secondPieceSelected;
    }
 
 }

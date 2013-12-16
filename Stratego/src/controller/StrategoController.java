@@ -136,74 +136,89 @@ public class StrategoController implements ActionListener {
     *
     * @param gameStage
     */
-   private void processGameStage(int gameStage) {
-	switch (gameStage) {
-	   case NEWGAME:
-		strategoModel.setGameStage(NEWGAME);
-		strategoView.setInfo("Game started", "Not Aplicable", "", "", "A new Game is prepared. Player 1 press 'NEXT PHASE' when ready.");
-		for (int x = 0; x < 10; x++) {
-		   for (int y = 0; y < 10; y++) {
-			/**
-			 * TODO: Alterar as 100 Pieces, utilizando os metodos:
-			 * updatePiece(Position position, Piece piece) ou
-			 * getPiece(Position position) e de seguida aplicar um dos
-			 * métodos de acesso de Piece.
-			 */
-			strategoModel.getPiece(x, y).setBackground(Color.blue);
+   private void processGameStage(int gameStage, Piece selectedPiece) {
+	/* Se ainda não foi escolhida uma peça, a que foi recebida é a primeira, casop contrário é a segunda. */
+	boolean toProcess = true;
+	if (strategoModel.getFirstPieceSelected() == null) {
+	   strategoModel.setFirstPieceSelected(selectedPiece);
+	   strategoView.addMessage("Select destination.");
+	   if (strategoModel.getGameStage() != 1) {
+		toProcess = false;
+	   }
+	} else {
+	   strategoModel.setSecondPieceSelected(selectedPiece);
+	   toProcess = true;
+	}
+
+	if (toProcess) {
+	   switch (gameStage) {
+		case NEWGAME:
+		   strategoModel.setGameStage(NEWGAME);
+		   strategoView.setInfo("Game started", "Not Aplicable", "", "", "A new Game is prepared. Player 1 press 'NEXT PHASE' when ready.");
+		   for (int x = 0; x < 10; x++) {
+			for (int y = 0; y < 10; y++) {
+			   /**
+			    * TODO: Alterar as 100 Pieces, utilizando os metodos:
+			    * updatePiece(Position position, Piece piece) ou
+			    * getPiece(Position position) e de seguida aplicar um dos
+			    * métodos de acesso de Piece.
+			    */
+			   strategoModel.getPiece(x, y).setBackground(Color.blue);
+			}
 		   }
-		}
-		break;
-	   case PLANNING_P1:
-		strategoModel.setGameStage(PLANNING_P1);
-		strategoView.setInfo("Planning phase", "Player 1", "", "", "Player 1, you may customize your army placement, press 'NEXT PHASE' to finish.");
-		// TODO: Alterar o texto dos botões das peças do player 1 para o rank.
-		break;
-	   case PLANNING_INTERVAL:
-		strategoModel.setGameStage(PLANNING_INTERVAL);
-		strategoView.setInfo("Planning phase", "Not aplicable", "", "", "Player 2, press 'NEXT PHASE' when ready.");
-		// TODO: Alterar o texto dos botões das peças do player 1 para neutro.
-		break;
-	   case PLANNING_P2:
-		strategoModel.setGameStage(PLANNING_P2);
-		strategoView.setInfo("Planning phase", "Player 2", "", "", "Player 2, you may customize your army placement, press 'NEXT PHASE' to finish.");
-		// TODO: Alterar o texto dos botões das peças do player 2 para o rank.
-		break;
-	   case READY_P1:
-		strategoModel.setGameStage(READY_P1);
-		strategoView.setInfo("Playing", "Not aplicable", "", "", "Player 1, press 'NEXT PHASE' when ready.");
-		// TODO: Alterar o texto dos botões das peças do player 2 para neutro.
-		break;
-	   case PLAYING_P1:
-		strategoModel.setGameStage(PLAYING_P1);
-		strategoView.setInfo("Playing", "Player 1", "", "", "Player 1, make your move.");
-		// TODO: Alterar o texto dos botões das peças do player 1 para rank.
-		strategoView.addMessage("Player 1 moved.");
-		strategoView.enableNextStageButton();
-		break;
-	   case READY_P2:
-		strategoModel.setGameStage(READY_P2);
-		strategoView.setInfo("Playing", "Not aplicable", "", "", "Player 2, press 'NEXT PHASE' when ready.");
-		// TODO: Alterar o texto dos botões das peças do player 1 para neutro.
-		break;
-	   case PLAYING_P2:
-		strategoModel.setGameStage(PLAYING_P2);
-		strategoView.setInfo("Playing", "Player 2", "", "", "Player 2, make your move.");
-		// TODO: Alterar o texto dos botões das peças do player 1 para rank.
-		strategoView.addMessage("Player 2 moved.");
-		strategoView.enableNextStageButton();
-		break;
-	   case ENDGAME:
-		strategoModel.setGameStage(ENDGAME);
-		strategoView.setInfo("End", "Not aplicable", "", "", "The End.");
-		// TODO: Alterar o texto dos botões de todas as peças para rank.
-		break;
+		   break;
+		case PLANNING_P1:
+		   strategoModel.setGameStage(PLANNING_P1);
+		   strategoView.setInfo("Planning phase", "Player 1", "", "", "Player 1, you may customize your army placement, press 'NEXT PHASE' to finish.");
+		   // TODO: Alterar o texto dos botões das peças do player 1 para o rank.
+		   break;
+		case PLANNING_INTERVAL:
+		   strategoModel.setGameStage(PLANNING_INTERVAL);
+		   strategoView.setInfo("Planning phase", "Not aplicable", "", "", "Player 2, press 'NEXT PHASE' when ready.");
+		   // TODO: Alterar o texto dos botões das peças do player 1 para neutro.
+		   break;
+		case PLANNING_P2:
+		   strategoModel.setGameStage(PLANNING_P2);
+		   strategoView.setInfo("Planning phase", "Player 2", "", "", "Player 2, you may customize your army placement, press 'NEXT PHASE' to finish.");
+		   // TODO: Alterar o texto dos botões das peças do player 2 para o rank.
+		   break;
+		case READY_P1:
+		   strategoModel.setGameStage(READY_P1);
+		   strategoView.setInfo("Playing", "Not aplicable", "", "", "Player 1, press 'NEXT PHASE' when ready.");
+		   // TODO: Alterar o texto dos botões das peças do player 2 para neutro.
+		   break;
+		case PLAYING_P1:
+		   strategoModel.setGameStage(PLAYING_P1);
+		   strategoView.setInfo("Playing", "Player 1", "", "", "Player 1, make your move.");
+		   // TODO: Alterar o texto dos botões das peças do player 1 para rank.
+		   strategoView.addMessage("Player 1 moved.");
+		   strategoView.enableNextStageButton();
+		   break;
+		case READY_P2:
+		   strategoModel.setGameStage(READY_P2);
+		   strategoView.setInfo("Playing", "Not aplicable", "", "", "Player 2, press 'NEXT PHASE' when ready.");
+		   // TODO: Alterar o texto dos botões das peças do player 1 para neutro.
+		   break;
+		case PLAYING_P2:
+		   strategoModel.setGameStage(PLAYING_P2);
+		   strategoView.setInfo("Playing", "Player 2", "", "", "Player 2, make your move.");
+		   // TODO: Alterar o texto dos botões das peças do player 1 para rank.
+		   strategoView.addMessage("Player 2 moved.");
+		   strategoView.enableNextStageButton();
+		   break;
+		case ENDGAME:
+		   strategoModel.setGameStage(ENDGAME);
+		   strategoView.setInfo("End", "Not aplicable", "", "", "The End.");
+		   // TODO: Alterar o texto dos botões de todas as peças para rank.
+		   break;
+	   }
 	}
    }
 
 
    /* Acção a executar com o botão NEWGAME. */
    private void newgameButtonActionPerformed(java.awt.event.ActionEvent evt) {
-	processGameStage(NEWGAME);
+	processGameStage(NEWGAME, null);
    }
 
    /**
@@ -216,7 +231,7 @@ public class StrategoController implements ActionListener {
 	Piece boardPiece;
 	boardPiece = (Piece) e.getSource();
 	strategoView.addMessage("(" + boardPiece.getPosition().x + ", " + boardPiece.getPosition().y + ")");
-	boardPiece.setBackground(Color.green);
+	processGameStage(strategoModel.getGameStage(), boardPiece);
    }
 
 }
