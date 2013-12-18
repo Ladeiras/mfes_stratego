@@ -16,6 +16,9 @@
 // ***** VDMTOOLS END Name=package
 
 // ***** VDMTOOLS START Name=imports KEEP=NO
+
+package VDM;
+
 import java.util.Map;
 import java.util.Set;
 import java.util.HashMap;
@@ -1021,7 +1024,7 @@ public class Game implements EvaluatePP {
                 changeTurn();
               }
               else {
-                if (((getPiece(p2).rank).number).intValue() < ((getPiece(p1).rank).number).intValue()) {
+                if (((getPiece(p2).rank).number).intValue() <= ((getPiece(p1).rank).number).intValue()) {
                   addPiece(p2, getClonePiece(p1));
                   addPiece(p1, emptyPiece());
                   changeTurn();

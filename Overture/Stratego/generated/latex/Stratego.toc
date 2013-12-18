@@ -1,7 +1,0 @@
-\contentsline {section}{\numberline {1}Code}{1}{section.1}
-\contentsline {section}{\numberline {2}Color}{2}{section.2}
-\contentsline {section}{\numberline {3}Game}{2}{section.3}
-\contentsline {section}{\numberline {4}Piece}{8}{section.4}
-\contentsline {section}{\numberline {5}Play}{10}{section.5}
-\contentsline {section}{\numberline {6}Rank}{13}{section.6}
-\contentsline {section}{\numberline {7}Tests}{14}{section.7}

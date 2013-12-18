@@ -157,7 +157,7 @@ class Game
 			checkToPositionColor(p1,p2) ==
 				(
 					if board(p2).color.name = getOpponentColor(p1) or
-						 board(p2).color.name = "null"
+						 (board(p2).color.name = "null" and board(p2).rank.name = "null")
 						then return true
 					else return false
 				)
